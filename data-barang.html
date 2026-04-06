@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Barang</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <aside class="w-full md:w-64 bg-indigo-900 text-white p-6">
+            <h1 class="text-2xl font-bold mb-8">Inventory App</h1>
+            <nav class="space-y-4">
+                <a href="index.html" class="block py-2 px-4 hover:bg-indigo-700 rounded">Dashboard</a>
+                <a href="data-barang.html" class="block py-2 px-4 bg-indigo-700 rounded">Data Barang</a>
+                <a href="tambah-barang.html" class="block py-2 px-4 hover:bg-indigo-700 rounded">Tambah Barang</a>
+                <a href="profil.html" class="block py-2 px-4 hover:bg-indigo-700 rounded">Profil Developer</a>
+                <a href="kontak.html" class="block py-2 px-4 hover:bg-indigo-700 rounded">Kontak</a>
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-8 text-sm">
+            <div class="bg-white p-6 rounded-lg shadow">
+                <div class="flex justify-between mb-4">
+                    <h2 class="text-xl font-bold">Daftar Inventaris Barang</h2>
+                    <a href="tambah-barang.html" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"> + Tambah</a>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-200">
+                                <th class="p-3 border">No</th>
+                                <th class="p-3 border">Kode</th>
+                                <th class="p-3 border">Nama Barang</th>
+                                <th class="p-3 border">Stok</th>
+                                <th class="p-3 border">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="p-3 border">1</td>
+                                <td class="p-3 border">BRG-001</td>
+                                <td class="p-3 border">Laptop Gaming</td>
+                                <td class="p-3 border">10</td>
+                                <td class="p-3 border space-x-2">
+                                    <button class="bg-yellow-500 text-white px-2 py-1 rounded">Edit</button>
+                                    <button class="bg-red-500 text-white px-2 py-1 rounded" onclick="alert('Hapus data?')">Hapus</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

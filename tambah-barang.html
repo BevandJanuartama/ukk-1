@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Barang</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="flex min-h-screen">
+        <main class="flex-1 flex justify-center items-center p-8">
+            <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+                <h2 class="text-2xl font-bold mb-6 text-center">Form Tambah Barang</h2>
+                <form action="data-barang.html" method="GET" class="space-y-4">
+                    <div>
+                        <label class="block text-gray-700">Nama Barang</label>
+                        <input type="text" class="w-full p-2 border rounded focus:ring-2 focus:ring-indigo-500" placeholder="Masukkan nama..." required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700">Kategori</label>
+                        <select class="w-full p-2 border rounded">
+                            <option>Elektronik</option>
+                            <option>Furniture</option>
+                            <option>Alat Tulis</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700">Stok</label>
+                        <input type="number" class="w-full p-2 border rounded" required>
+                    </div>
+                    <div class="flex space-x-4 pt-4">
+                        <button type="submit" class="flex-1 bg-indigo-600 text-white py-2 rounded">Simpan</button>
+                        <a href="data-barang.html" class="flex-1 bg-gray-400 text-white py-2 text-center rounded">Batal</a>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
