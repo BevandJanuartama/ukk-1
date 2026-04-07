@@ -1,135 +1,188 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kontak - Inventory App</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Sidebar mobile: tersembunyi secara default, muncul saat .open */
+      /* Sidebar mobile: tersembunyi secara default, muncul saat .open */
+      #sidebar {
+        transition: transform 0.25s ease;
+      }
+
+      /* Overlay gelap di belakang sidebar saat mobile */
+      #overlay {
+        display: none;
+      }
+
+      @media (max-width: 767px) {
         #sidebar {
-            transition: transform 0.25s ease;
+          position: fixed;
+          top: 0;
+          left: 0;
+          height: 100%;
+          z-index: 40;
+          transform: translateX(-100%);
         }
-
-        /* Overlay gelap di belakang sidebar saat mobile */
-        #overlay {
-            display: none;
+        #sidebar.open {
+          transform: translateX(0);
         }
-
-        @media (max-width: 767px) {
-            #sidebar {
-                position: fixed;
-                top: 0; left: 0;
-                height: 100%;
-                z-index: 40;
-                transform: translateX(-100%);
-            }
-            #sidebar.open {
-                transform: translateX(0);
-            }
-            #overlay.open {
-                display: block;
-            }
+        #overlay.open {
+          display: block;
         }
+      }
     </style>
-</head>
-<body class="bg-gray-100 text-gray-800">
+  </head>
+  <body class="bg-gray-100 text-gray-800">
+    <!-- OVERLAY (klik untuk tutup sidebar di mobile) -->
+    <div
+      id="overlay"
+      class="fixed inset-0 bg-black bg-opacity-40 z-30"
+      onclick="toggleSidebar()"
+    ></div>
 
-<!-- OVERLAY (klik untuk tutup sidebar di mobile) -->
-<div id="overlay" class="fixed inset-0 bg-black bg-opacity-40 z-30"
-     onclick="toggleSidebar()"></div>
-
-<div class="flex min-h-screen">
-
-    <!-- SIDEBAR -->
-    <aside id="sidebar" class="w-56 shrink-0 bg-indigo-900 text-white flex flex-col p-6">
+    <div class="flex min-h-screen">
+      <!-- SIDEBAR -->
+      <aside
+        id="sidebar"
+        class="w-56 shrink-0 bg-indigo-900 text-white flex flex-col p-6"
+      >
         <h1 class="text-lg font-bold mb-8">Inventory App</h1>
         <nav class="flex flex-col gap-1 flex-1 text-sm">
-            <a href="index.html"         class="px-4 py-2 rounded hover:bg-indigo-700">Dashboard</a>
-            <a href="data-barang.html"   class="px-4 py-2 rounded hover:bg-indigo-700">Data Barang</a>
-            <a href="tambah-barang.html" class="px-4 py-2 rounded hover:bg-indigo-700">Tambah Barang</a>
-            <a href="profil.html"        class="px-4 py-2 rounded hover:bg-indigo-700">Profil Developer</a>
-            <a href="kontak.html"        class="px-4 py-2 rounded bg-indigo-700">Kontak</a>
+          <a href="index.html" class="px-4 py-2 rounded hover:bg-indigo-700"
+            >Dashboard</a
+          >
+          <a
+            href="data-barang.html"
+            class="px-4 py-2 rounded hover:bg-indigo-700"
+            >Data Barang</a
+          >
+          <a
+            href="tambah-barang.html"
+            class="px-4 py-2 rounded hover:bg-indigo-700"
+            >Tambah Barang</a
+          >
+          <a href="profil.html" class="px-4 py-2 rounded hover:bg-indigo-700"
+            >Profil Developer</a
+          >
+          <a href="kontak.html" class="px-4 py-2 rounded bg-indigo-700"
+            >Kontak</a
+          >
         </nav>
-        <p class="text-indigo-400 text-xs">UKK RPL 2026 &copy; Bepann</p>
-    </aside>
+      </aside>
 
-    <!-- AREA KANAN -->
-    <div class="flex-1 flex flex-col">
-
+      <!-- AREA KANAN -->
+      <div class="flex-1 flex flex-col">
         <!-- HEADER -->
-        <header class="bg-white shadow px-6 py-4 flex justify-between items-center sticky top-0 z-20">
-            <div class="flex items-center gap-4">
-                <!-- Tombol burger, hanya tampil di mobile -->
-                <button onclick="toggleSidebar()" class="md:hidden text-gray-600 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
-                         viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                              d="M4 6h16M4 12h16M4 18h16"/>
-                    </svg>
-                </button>
-                <h2 class="font-semibold text-lg">Kontak</h2>
-            </div>
+        <header
+          class="bg-white shadow px-6 py-4 flex justify-between items-center sticky top-0 z-20"
+        >
+          <div class="flex items-center gap-4">
+            <!-- Tombol burger, hanya tampil di mobile -->
+            <button
+              onclick="toggleSidebar()"
+              class="md:hidden text-gray-600 focus:outline-none"
+            >
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+            <h2 class="font-semibold text-lg">Kontak</h2>
+          </div>
         </header>
 
         <!-- KONTEN -->
         <main class="flex-1 p-8 flex items-start justify-center">
-            <div class="bg-white rounded-lg shadow p-6 w-full max-w-md">
-                <h3 class="font-semibold mb-6">Hubungi Kami</h3>
+          <div class="bg-white rounded-lg shadow p-6 w-full max-w-md">
+            <h3 class="font-semibold mb-6">Hubungi Kami</h3>
 
-                <form action="#" method="POST" class="space-y-4">
+            <form action="#" method="POST" class="space-y-4">
+              <!-- Nama -->
+              <div>
+                <label class="block text-sm text-gray-600 mb-1"
+                  >Nama Lengkap</label
+                >
+                <input
+                  type="text"
+                  name="nama"
+                  placeholder="Masukkan nama lengkap"
+                  required
+                  class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                />
+              </div>
 
-                    <!-- Nama -->
-                    <div>
-                        <label class="block text-sm text-gray-600 mb-1">Nama Lengkap</label>
-                        <input type="text" name="nama" placeholder="Masukkan nama lengkap" required
-                            class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
-                    </div>
+              <!-- Email -->
+              <div>
+                <label class="block text-sm text-gray-600 mb-1">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="contoh@email.com"
+                  required
+                  class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                />
+              </div>
 
-                    <!-- Email -->
-                    <div>
-                        <label class="block text-sm text-gray-600 mb-1">Email</label>
-                        <input type="email" name="email" placeholder="contoh@email.com" required
-                            class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
-                    </div>
+              <!-- Subjek -->
+              <div>
+                <label class="block text-sm text-gray-600 mb-1">Subjek</label>
+                <input
+                  type="text"
+                  name="subjek"
+                  placeholder="Masukkan subjek pesan"
+                  class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                />
+              </div>
 
-                    <!-- Subjek -->
-                    <div>
-                        <label class="block text-sm text-gray-600 mb-1">Subjek</label>
-                        <input type="text" name="subjek" placeholder="Masukkan subjek pesan"
-                            class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
-                    </div>
+              <!-- Pesan -->
+              <div>
+                <label class="block text-sm text-gray-600 mb-1">Pesan</label>
+                <textarea
+                  name="pesan"
+                  rows="4"
+                  placeholder="Tulis pesan Anda..."
+                  required
+                  class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none"
+                ></textarea>
+              </div>
 
-                    <!-- Pesan -->
-                    <div>
-                        <label class="block text-sm text-gray-600 mb-1">Pesan</label>
-                        <textarea name="pesan" rows="4" placeholder="Tulis pesan Anda..." required
-                            class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none"></textarea>
-                    </div>
-
-                    <!-- Tombol -->
-                    <button type="submit"
-                        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded text-sm font-semibold">
-                        Kirim Pesan
-                    </button>
-                </form>
-            </div>
+              <!-- Tombol -->
+              <button
+                type="submit"
+                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded text-sm font-semibold"
+              >
+                Kirim Pesan
+              </button>
+            </form>
+          </div>
         </main>
 
         <!-- FOOTER -->
-        <footer class="bg-white border-t text-center text-xs text-gray-400 py-4">
-            &copy; 2026 Inventory App &mdash; Bepann
+        <footer
+          class="bg-white border-t text-center text-xs text-gray-400 py-4"
+        >
+          &copy; 2026 UKK Tugas 1 &mdash; Bevand
         </footer>
+      </div>
     </div>
-</div>
 
-<script>
-    /* Toggle sidebar di mobile */
-    function toggleSidebar() {
-        document.getElementById('sidebar').classList.toggle('open');
-        document.getElementById('overlay').classList.toggle('open');
-    }
-</script>
-
-</body>
+    <script>
+      /* Toggle sidebar di mobile */
+      function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("open");
+        document.getElementById("overlay").classList.toggle("open");
+      }
+    </script>
+  </body>
 </html>

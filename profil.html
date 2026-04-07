@@ -1,139 +1,180 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Profil Developer - Inventory App</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Sidebar mobile: tersembunyi secara default, muncul saat .open */
+      /* Sidebar mobile: tersembunyi secara default, muncul saat .open */
+      #sidebar {
+        transition: transform 0.25s ease;
+      }
+
+      /* Overlay gelap di belakang sidebar saat mobile */
+      #overlay {
+        display: none;
+      }
+
+      @media (max-width: 767px) {
         #sidebar {
-            transition: transform 0.25s ease;
+          position: fixed;
+          top: 0;
+          left: 0;
+          height: 100%;
+          z-index: 40;
+          transform: translateX(-100%);
         }
-
-        /* Overlay gelap di belakang sidebar saat mobile */
-        #overlay {
-            display: none;
+        #sidebar.open {
+          transform: translateX(0);
         }
-
-        @media (max-width: 767px) {
-            #sidebar {
-                position: fixed;
-                top: 0; left: 0;
-                height: 100%;
-                z-index: 40;
-                transform: translateX(-100%);
-            }
-            #sidebar.open {
-                transform: translateX(0);
-            }
-            #overlay.open {
-                display: block;
-            }
+        #overlay.open {
+          display: block;
         }
+      }
     </style>
-</head>
-<body class="bg-gray-100 text-gray-800">
+  </head>
+  <body class="bg-gray-100 text-gray-800">
+    <!-- OVERLAY (klik untuk tutup sidebar di mobile) -->
+    <div
+      id="overlay"
+      class="fixed inset-0 bg-black bg-opacity-40 z-30"
+      onclick="toggleSidebar()"
+    ></div>
 
-<!-- OVERLAY (klik untuk tutup sidebar di mobile) -->
-<div id="overlay" class="fixed inset-0 bg-black bg-opacity-40 z-30"
-     onclick="toggleSidebar()"></div>
-
-<div class="flex min-h-screen">
-
-    <!-- SIDEBAR -->
-    <aside id="sidebar" class="w-56 shrink-0 bg-indigo-900 text-white flex flex-col p-6">
+    <div class="flex min-h-screen">
+      <!-- SIDEBAR -->
+      <aside
+        id="sidebar"
+        class="w-56 shrink-0 bg-indigo-900 text-white flex flex-col p-6"
+      >
         <h1 class="text-lg font-bold mb-8">Inventory App</h1>
         <nav class="flex flex-col gap-1 flex-1 text-sm">
-            <a href="index.html"         class="px-4 py-2 rounded hover:bg-indigo-700">Dashboard</a>
-            <a href="data-barang.html"   class="px-4 py-2 rounded hover:bg-indigo-700">Data Barang</a>
-            <a href="tambah-barang.html" class="px-4 py-2 rounded hover:bg-indigo-700">Tambah Barang</a>
-            <a href="profil.html"        class="px-4 py-2 rounded bg-indigo-700">Profil Developer</a>
-            <a href="kontak.html"        class="px-4 py-2 rounded hover:bg-indigo-700">Kontak</a>
+          <a href="index.html" class="px-4 py-2 rounded hover:bg-indigo-700"
+            >Dashboard</a
+          >
+          <a
+            href="data-barang.html"
+            class="px-4 py-2 rounded hover:bg-indigo-700"
+            >Data Barang</a
+          >
+          <a
+            href="tambah-barang.html"
+            class="px-4 py-2 rounded hover:bg-indigo-700"
+            >Tambah Barang</a
+          >
+          <a href="profil.html" class="px-4 py-2 rounded bg-indigo-700"
+            >Profil Developer</a
+          >
+          <a href="kontak.html" class="px-4 py-2 rounded hover:bg-indigo-700"
+            >Kontak</a
+          >
         </nav>
-        <p class="text-indigo-400 text-xs">UKK RPL 2026 &copy; Bepann</p>
-    </aside>
+      </aside>
 
-    <!-- AREA KANAN -->
-    <div class="flex-1 flex flex-col min-w-0">
-
+      <!-- AREA KANAN -->
+      <div class="flex-1 flex flex-col min-w-0">
         <!-- HEADER -->
-        <header class="bg-white shadow px-6 py-4 flex justify-between items-center sticky top-0 z-20">
-            <div class="flex items-center gap-4">
-                <!-- Tombol burger, hanya tampil di mobile -->
-                <button onclick="toggleSidebar()" class="md:hidden text-gray-600 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
-                         viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                              d="M4 6h16M4 12h16M4 18h16"/>
-                    </svg>
-                </button>
-                <h2 class="font-semibold text-lg">Profil</h2>
-            </div>
+        <header
+          class="bg-white shadow px-6 py-4 flex justify-between items-center sticky top-0 z-20"
+        >
+          <div class="flex items-center gap-4">
+            <!-- Tombol burger, hanya tampil di mobile -->
+            <button
+              onclick="toggleSidebar()"
+              class="md:hidden text-gray-600 focus:outline-none"
+            >
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+            <h2 class="font-semibold text-lg">Profil</h2>
+          </div>
         </header>
 
         <!-- KONTEN -->
         <main class="flex-1 p-6 md:p-8 flex items-start justify-center">
-            <div class="bg-white rounded-lg shadow p-8 w-full max-w-sm text-center">
-
-                <!-- Avatar inisial -->
-                <div class="w-20 h-20 bg-indigo-600 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold">
-                    MBJ
-                </div>
-
-                <!-- Nama & jabatan -->
-                <h3 class="text-xl font-bold">Muhammad Bevand Januartama</h3>
-                <p class="text-indigo-600 text-sm font-medium mt-1">Web Developer</p>
-
-                <hr class="my-5 border-gray-200">
-
-                <!-- Info detail -->
-                <div class="text-sm text-gray-600 space-y-3 text-left">
-                    <div class="flex justify-between gap-4">
-                        <span class="text-gray-400 shrink-0">Kelas</span>
-                        <span class="text-right">12 RPL</span>
-                    </div>
-                    <div class="flex justify-between gap-4">
-                        <span class="text-gray-400 shrink-0">Sekolah</span>
-                        <span class="text-right">SMK Telkom Banjarbaru</span>
-                    </div>
-                    <div class="flex justify-between gap-4">
-                        <span class="text-gray-400 shrink-0">Program Keahlian</span>
-                        <span class="text-right">Rekayasa Perangkat Lunak</span>
-                    </div>
-                    <div class="flex justify-between gap-4">
-                        <span class="text-gray-400 shrink-0">Kegiatan</span>
-                        <span class="text-right">Uji Kompetensi Keahlian 2026</span>
-                    </div>
-                    <div class="flex justify-between gap-4">
-                        <span class="text-gray-400 shrink-0">Website</span>
-                        <a href="https://bevandjanuartama.my.id" target="_blank"
-                           class="text-indigo-600 hover:underline break-all text-right">
-                            bevandjanuartama.my.id
-                        </a>
-                    </div>
-                </div>
-
-                <hr class="my-5 border-gray-200">
-
-                <a href="index.html" class="text-indigo-600 text-sm hover:underline">Kembali ke Dashboard</a>
+          <div
+            class="bg-white rounded-lg shadow p-8 w-full max-w-sm text-center"
+          >
+            <!-- Avatar inisial -->
+            <div
+              class="w-20 h-20 bg-indigo-600 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold"
+            >
+              MBJ
             </div>
+
+            <!-- Nama & jabatan -->
+            <h3 class="text-xl font-bold">Muhammad Bevand Januartama</h3>
+            <p class="text-indigo-600 text-sm font-medium mt-1">
+              Web Developer
+            </p>
+
+            <hr class="my-5 border-gray-200" />
+
+            <!-- Info detail -->
+            <div class="text-sm text-gray-600 space-y-3 text-left">
+              <div class="flex justify-between gap-4">
+                <span class="text-gray-400 shrink-0">Kelas</span>
+                <span class="text-right">12 RPL</span>
+              </div>
+              <div class="flex justify-between gap-4">
+                <span class="text-gray-400 shrink-0">Sekolah</span>
+                <span class="text-right">SMK Telkom Banjarbaru</span>
+              </div>
+              <div class="flex justify-between gap-4">
+                <span class="text-gray-400 shrink-0">Program Keahlian</span>
+                <span class="text-right">Rekayasa Perangkat Lunak</span>
+              </div>
+              <div class="flex justify-between gap-4">
+                <span class="text-gray-400 shrink-0">Kegiatan</span>
+                <span class="text-right">Uji Kompetensi Keahlian 2026</span>
+              </div>
+              <div class="flex justify-between gap-4">
+                <span class="text-gray-400 shrink-0">Website</span>
+                <a
+                  href="https://bevandjanuartama.my.id"
+                  target="_blank"
+                  class="text-indigo-600 hover:underline break-all text-right"
+                >
+                  bevandjanuartama.my.id
+                </a>
+              </div>
+            </div>
+
+            <hr class="my-5 border-gray-200" />
+
+            <a href="index.html" class="text-indigo-600 text-sm hover:underline"
+              >Kembali ke Dashboard</a
+            >
+          </div>
         </main>
 
         <!-- FOOTER -->
-        <footer class="bg-white border-t text-center text-xs text-gray-400 py-4">
-            &copy; 2026 Inventory App &mdash; Muhammad Bevand Januartama
+        <footer
+          class="bg-white border-t text-center text-xs text-gray-400 py-4"
+        >
+          &copy; 2026 UKK Tugas 1 &mdash; Bevand
         </footer>
+      </div>
     </div>
-</div>
 
-<script>
-    /* Toggle sidebar di mobile */
-    function toggleSidebar() {
-        document.getElementById('sidebar').classList.toggle('open');
-        document.getElementById('overlay').classList.toggle('open');
-    }
-</script>
-
-</body>
+    <script>
+      /* Toggle sidebar di mobile */
+      function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("open");
+        document.getElementById("overlay").classList.toggle("open");
+      }
+    </script>
+  </body>
 </html>

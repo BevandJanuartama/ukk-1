@@ -1,147 +1,157 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Detail Barang - Inventory App</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
-        /* Sidebar mobile: tersembunyi secara default, muncul saat .open */
+      /* Sidebar mobile: tersembunyi secara default, muncul saat .open */
+      #sidebar {
+        transition: transform 0.25s ease;
+      }
+
+      /* Overlay gelap di belakang sidebar saat mobile */
+      #overlay {
+        display: none;
+      }
+
+      @media (max-width: 767px) {
         #sidebar {
-            transition: transform 0.25s ease;
+          position: fixed;
+          top: 0;
+          left: 0;
+          height: 100%;
+          z-index: 40;
+          transform: translateX(-100%);
         }
-
-        /* Overlay gelap di belakang sidebar saat mobile */
-        #overlay {
-            display: none;
+        #sidebar.open {
+          transform: translateX(0);
         }
-
-        @media (max-width: 767px) {
-            #sidebar {
-                position: fixed;
-                top: 0; left: 0;
-                height: 100%;
-                z-index: 40;
-                transform: translateX(-100%);
-            }
-            #sidebar.open {
-                transform: translateX(0);
-            }
-            #overlay.open {
-                display: block;
-            }
+        #overlay.open {
+          display: block;
         }
+      }
     </style>
 </head>
+
 <body class="bg-gray-100 text-gray-800">
 
-<!-- OVERLAY mobile -->
-<div id="overlay" class="fixed inset-0 bg-black bg-opacity-40 z-30"
-     onclick="toggleSidebar()"></div>
+    <!-- OVERLAY -->
+    <div id="overlay"
+         class="fixed inset-0 bg-black bg-opacity-40 z-30"
+         onclick="toggleSidebar()"></div>
 
-<div class="flex min-h-screen">
+    <div class="flex min-h-screen">
 
-    <!-- SIDEBAR -->
-    <aside id="sidebar" class="w-56 shrink-0 bg-indigo-900 text-white flex flex-col p-6">
-        <h1 class="text-lg font-bold mb-8">Inventory App</h1>
-        <nav class="flex flex-col gap-1 flex-1 text-sm">
-            <a href="index.html"         class="px-4 py-2 rounded hover:bg-indigo-700">Dashboard</a>
-            <a href="data-barang.html"   class="px-4 py-2 rounded bg-indigo-700">Data Barang</a>
-            <a href="tambah-barang.html" class="px-4 py-2 rounded hover:bg-indigo-700">Tambah Barang</a>
-            <a href="profil.html"        class="px-4 py-2 rounded hover:bg-indigo-700">Profil Developer</a>
-            <a href="kontak.html"        class="px-4 py-2 rounded hover:bg-indigo-700">Kontak</a>
-        </nav>
-        <p class="text-indigo-400 text-xs">UKK RPL 2026 &copy; Bepann</p>
-    </aside>
+        <!-- SIDEBAR -->
+        <aside id="sidebar"
+               class="w-56 shrink-0 bg-indigo-900 text-white flex flex-col p-6">
 
-    <!-- AREA KANAN -->
-    <div class="flex-1 flex flex-col min-w-0">
+            <h1 class="text-lg font-bold mb-8">Inventory App</h1>
 
-        <header class="bg-white shadow px-6 py-4 flex justify-between items-center sticky top-0 z-20">
-            <div class="flex items-center gap-4">
-                <!-- Tombol burger, hanya tampil di mobile -->
-                <button onclick="toggleSidebar()" class="md:hidden text-gray-600 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
-                         viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                              d="M4 6h16M4 12h16M4 18h16"/>
-                    </svg>
-                </button>
-                <h2 class="font-semibold text-lg">Detail Barang</h2>
-            </div>
-        </header>
+            <nav class="flex flex-col gap-1 flex-1 text-sm">
+                <a href="index.html" class="px-4 py-2 rounded hover:bg-indigo-700">Dashboard</a>
+                <a href="data-barang.html" class="px-4 py-2 rounded bg-indigo-700">Data Barang</a>
+                <a href="tambah-barang.html" class="px-4 py-2 rounded hover:bg-indigo-700">Tambah Barang</a>
+                <a href="profil.html" class="px-4 py-2 rounded hover:bg-indigo-700">Profil Developer</a>
+                <a href="kontak.html" class="px-4 py-2 rounded hover:bg-indigo-700">Kontak</a>
+            </nav>
 
-        <!-- KONTEN -->
-        <main class="flex-1 p-6 md:p-8">
+        </aside>
 
-            <!-- Card Info Barang -->
-            <div class="bg-white rounded-lg shadow p-6 max-w-2xl">
+        <!-- MAIN -->
+        <div class="flex-1 flex flex-col min-w-0">
 
-                <!-- Kode & Badge -->
-                <div class="flex justify-between items-start mb-6">
-                    <div>
-                        <p class="text-xs text-gray-400 mb-1">Kode Barang</p>
-                        <p class="text-sm font-mono text-gray-500">BRG-001</p>
+            <!-- HEADER -->
+            <header class="bg-white shadow px-6 py-4 flex justify-between items-center sticky top-0 z-20">
+                <div class="flex items-center gap-4">
+
+                    <button onclick="toggleSidebar()"
+                            class="md:hidden text-gray-600 focus:outline-none">
+
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+
+                    <h2 class="font-semibold text-lg">Detail Barang</h2>
+                </div>
+            </header>
+
+            <!-- CONTENT -->
+            <main class="flex-1 p-6 md:p-8">
+
+                <div class="bg-white rounded-lg shadow p-6 max-w-2xl">
+
+                    <!-- KODE -->
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <p class="text-xs text-gray-400 mb-1">Kode Barang</p>
+                            <p class="text-sm font-mono text-gray-500">BRG-001</p>
+                        </div>
                     </div>
+
+                    <!-- TITLE -->
+                    <h3 class="text-2xl font-bold mb-1">Laptop</h3>
+                    <p class="text-indigo-600 text-sm mb-6">Elektronik</p>
+
+                    <hr class="border-gray-100 mb-6" />
+
+                    <!-- DETAIL GRID -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+
+                        <div>
+                            <p class="text-gray-400 text-xs mb-1">Nama Barang</p>
+                            <p class="font-medium">Laptop</p>
+                        </div>
+
+                        <div>
+                            <p class="text-gray-400 text-xs mb-1">Kategori</p>
+                            <p class="font-medium">Elektronik</p>
+                        </div>
+
+                        <div>
+                            <p class="text-gray-400 text-xs mb-1">Stok</p>
+                            <p class="font-medium">10</p>
+                        </div>
+
+                        <div>
+                            <p class="text-gray-400 text-xs mb-1">Tanggal Masuk</p>
+                            <p class="font-medium">01 Januari 2026</p>
+                        </div>
+
+                    </div>
+
+                    <hr class="border-gray-100 my-6" />
+
+                    <!-- ACTION -->
+                    <div class="flex gap-3">
+                        <a href="data-barang.html"
+                           class="bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm font-semibold px-4 py-2 rounded">
+                            Kembali
+                        </a>
+                    </div>
+
                 </div>
 
-                <h3 class="text-2xl font-bold mb-1">Laptop</h3>
-                <p class="text-indigo-600 text-sm mb-6">Elektronik</p>
+            </main>
 
-                <hr class="border-gray-100 mb-6">
+            <!-- FOOTER -->
+            <footer class="bg-white border-t text-center text-xs text-gray-400 py-4">
+                &copy; 2026 UKK Tugas 1 &mdash; Bevand
+            </footer>
 
-                <!-- Detail info dalam grid -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-
-                    <div>
-                        <p class="text-gray-400 text-xs mb-1">Nama Barang</p>
-                        <p class="font-medium">Laptop</p>
-                    </div>
-
-                    <div>
-                        <p class="text-gray-400 text-xs mb-1">Kategori</p>
-                        <p class="font-medium">Elektronik</p>
-                    </div>
-
-                    <div>
-                        <p class="text-gray-400 text-xs mb-1">Stok</p>
-                        <p class="font-medium">10</p>
-                    </div>
-
-                    <div>
-                        <p class="text-gray-400 text-xs mb-1">Tanggal Masuk</p>
-                        <p class="font-medium">01 Januari 2026</p>
-                    </div>
-
-                </div>
-
-                <hr class="border-gray-100 my-6">
-
-                <!-- Tombol Aksi -->
-                <div class="flex gap-3">
-                    <a href="data-barang.html"
-                       class="bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm font-semibold px-4 py-2 rounded">
-                        Kembali
-                    </a>
-                </div>
-
-            </div>
-        </main>
-
-        <!-- FOOTER -->
-        <footer class="bg-white border-t text-center text-xs text-gray-400 py-4">
-            &copy; 2026 Inventory App &mdash; Bepann
-        </footer>
+        </div>
     </div>
-</div>
 
-<script>
-    /* Toggle sidebar di mobile */
-    function toggleSidebar() {
-        document.getElementById('sidebar').classList.toggle('open');
-        document.getElementById('overlay').classList.toggle('open');
-    }
-</script>
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("open");
+            document.getElementById("overlay").classList.toggle("open");
+        }
+    </script>
 
 </body>
 </html>
