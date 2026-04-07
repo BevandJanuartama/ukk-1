@@ -3,48 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Barang</title>
+    <title>Data Barang - Inventory App</title>
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100">
-    <div class="flex flex-col md:flex-row min-h-screen">
-        <aside class="w-full md:w-64 bg-indigo-900 text-white p-6">
-            <h1 class="text-2xl font-bold mb-8">Inventory App</h1>
-            <nav class="space-y-4">
-                <a href="index.html" class="block py-2 px-4 hover:bg-indigo-700 rounded">Dashboard</a>
-                <a href="data-barang.html" class="block py-2 px-4 bg-indigo-700 rounded">Data Barang</a>
-                <a href="tambah-barang.html" class="block py-2 px-4 hover:bg-indigo-700 rounded">Tambah Barang</a>
-                <a href="profil.html" class="block py-2 px-4 hover:bg-indigo-700 rounded">Profil Developer</a>
-                <a href="kontak.html" class="block py-2 px-4 hover:bg-indigo-700 rounded">Kontak</a>
-            </nav>
-        </aside>
 
-        <main class="flex-1 p-8 text-sm">
-            <div class="bg-white p-6 rounded-lg shadow">
-                <div class="flex justify-between mb-4">
-                    <h2 class="text-xl font-bold">Daftar Inventaris Barang</h2>
-                    <a href="tambah-barang.html" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"> + Tambah</a>
+    <style>
+        /* Sidebar mobile: tersembunyi secara default, muncul saat .open */
+        #sidebar {
+            transition: transform 0.25s ease;
+        }
+
+        /* Overlay gelap di belakang sidebar saat mobile */
+        #overlay {
+            display: none;
+        }
+
+        @media (max-width: 767px) {
+            #sidebar {
+                position: fixed;
+                top: 0; left: 0;
+                height: 100%;
+                z-index: 40;
+                transform: translateX(-100%);
+            }
+            #sidebar.open {
+                transform: translateX(0);
+            }
+            #overlay.open {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+<!-- OVERLAY (klik untuk tutup sidebar di mobile) -->
+<div id="overlay" class="fixed inset-0 bg-black bg-opacity-40 z-30"
+     onclick="toggleSidebar()"></div>
+
+<div class="flex min-h-screen">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="w-56 shrink-0 bg-indigo-900 text-white flex flex-col p-6">
+        <h1 class="text-lg font-bold mb-8">Inventory App</h1>
+        <nav class="flex flex-col gap-1 flex-1 text-sm">
+            <a href="index.html"         class="px-4 py-2 rounded hover:bg-indigo-700">Dashboard</a>
+            <a href="data-barang.html"   class="px-4 py-2 rounded bg-indigo-700">Data Barang</a>
+            <a href="tambah-barang.html" class="px-4 py-2 rounded hover:bg-indigo-700">Tambah Barang</a>
+            <a href="profil.html"        class="px-4 py-2 rounded hover:bg-indigo-700">Profil Developer</a>
+            <a href="kontak.html"        class="px-4 py-2 rounded hover:bg-indigo-700">Kontak</a>
+        </nav>
+        <p class="text-indigo-400 text-xs">UKK RPL 2026 &copy; Bepann</p>
+    </aside>
+
+    <!-- AREA KANAN -->
+    <div class="flex-1 flex flex-col">
+
+        <!-- HEADER -->
+        <header class="bg-white shadow px-6 py-4 flex justify-between items-center sticky top-0 z-20">
+            <div class="flex items-center gap-4">
+                <!-- Tombol burger, hanya tampil di mobile -->
+                <button onclick="toggleSidebar()" class="md:hidden text-gray-600 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+                         viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+                <h2 class="font-semibold text-lg">Data Barang</h2>
+            </div>
+        </header>
+
+        <!-- KONTEN -->
+        <main class="flex-1 p-8">
+            <div class="bg-white rounded-lg shadow p-6">
+
+                <!-- Toolbar -->
+                <div class="flex justify-between items-center mb-5">
+                    <h3 class="font-semibold">Daftar Inventaris Barang</h3>
+                    <a href="tambah-barang.html"
+                       class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm px-4 py-2 rounded">
+                        + Tambah Barang
+                    </a>
                 </div>
+
+                <!-- Tabel -->
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
+                    <table class="w-full text-sm border-collapse">
                         <thead>
-                            <tr class="bg-gray-200">
-                                <th class="p-3 border">No</th>
-                                <th class="p-3 border">Kode</th>
-                                <th class="p-3 border">Nama Barang</th>
-                                <th class="p-3 border">Stok</th>
-                                <th class="p-3 border">Aksi</th>
+                            <tr class="bg-gray-100 text-gray-600 text-xs uppercase text-left">
+                                <th class="p-3 border text-center">No</th>
+                                <th class="p-3 border text-center">Kode</th>
+                                <th class="p-3 border text-center">Nama Barang</th>
+                                <th class="p-3 border text-center">Kategori</th>
+                                <th class="p-3 border text-center">Stok</th>
+                                <th class="p-3 border text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="p-3 border">1</td>
-                                <td class="p-3 border">BRG-001</td>
-                                <td class="p-3 border">Laptop Gaming</td>
-                                <td class="p-3 border">10</td>
-                                <td class="p-3 border space-x-2">
-                                    <button class="bg-yellow-500 text-white px-2 py-1 rounded">Edit</button>
-                                    <button class="bg-red-500 text-white px-2 py-1 rounded" onclick="alert('Hapus data?')">Hapus</button>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3 border text-center">1</td>
+                                <td class="p-3 border text-gray-500">BRG-001</td>
+                                <td class="p-3 border">Laptop</td>
+                                <td class="p-3 border">Elektronik</td>
+                                <td class="p-3 border text-center">10</td>
+                                <td class="p-3 border">
+                                    <div class="flex gap-2 justify-center items-center">
+
+                                         <a href="detail-barang.html" class="bg-blue-400 hover:bg-blue-500 text-white text-xs px-3 py-1.5 rounded transition duration-200 shadow-sm">
+                                            Detail
+                                        </a>
+
+                                        <a href="edit-barang.html" class="bg-yellow-400 hover:bg-yellow-500 text-white text-xs px-3 py-1.5 rounded transition duration-200 shadow-sm">
+                                            Edit
+                                        </a>
+                                        
+                                        <button onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')" 
+                                                class="bg-red-500 hover:bg-red-600 text-white text-xs px-3 py-1.5 rounded transition duration-200 shadow-sm">
+                                            Hapus
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -52,6 +129,21 @@
                 </div>
             </div>
         </main>
+
+        <!-- FOOTER -->
+        <footer class="bg-white border-t text-center text-xs text-gray-400 py-4">
+            &copy; 2026 Inventory App &mdash; Bepann
+        </footer>
     </div>
+</div>
+
+<script>
+    /* Toggle sidebar di mobile */
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('open');
+        document.getElementById('overlay').classList.toggle('open');
+    }
+</script>
+
 </body>
 </html>
